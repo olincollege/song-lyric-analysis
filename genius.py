@@ -150,10 +150,14 @@ def get_all_lyrics():
         A list containing the lyrics of all songs from the list.
     """
     #currently takes the last 20 songs
-    songs = format_list_for_genius()[-20:]
+    songs = format_list_for_genius()
     lyrics = []
+    count = 0
     for song in songs:
         lyrics.append(get_lyrics(song))
+        if count % 100 == 0:
+            print(count)
+        count += 1
     return lyrics
 
 
@@ -165,7 +169,7 @@ def song_list_with_lyrics():
         A list of lists containing song information and lyrics.
     """
     # currently takes the last 20 songs
-    song_list = csv_to_list("songs.csv")[-20:]
+    song_list = csv_to_list("songs.csv")
     lyric_list = get_all_lyrics()
     for index, song in enumerate(song_list):
         song.append(lyric_list[index])
