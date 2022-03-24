@@ -1,1 +1,13 @@
-This is the draft README file for this repository.
+In particular, your submission repository should have a file called README.md written in Markdown. This file should briefly summarize your project and explain how to use your code to obtain and/or analyze your data. By following the instructions in the README, anyone else should be able to clone your project code to their machine and perform a similar analysis to your work.
+
+Our project takes the top 100 songs on the billboards each year from the past 52 years. The songs range from different languages, genres, and artists. We then find the lyrics for each of the songs and count how many times the title appears in the lyrics. We then use visuals to see if there are any correlations between the rankings of the songs and how many times the title appears in the lyrics. We split the coding sections of this project into three files: wiki_data.py, genius.py, and finder.py.
+
+wiki_data.py scraps data from wikipedia to find all the top 100 songs each year. The data is put into a csv file labeled        songs.csv. We also created a file labeled songs_copy.csv which is a copy of of the songs.csv as a backup just in case songs.csv changed in any way. 
+
+genius.py scraps data from genius to find the lyrics to each of the songs in the top 100 every year. The data is put into a csv file labeled songs_with_lyrics.csv. We also created a file labeled songs_with_lyrics_copy.csv which is a copy of of the songs_with_lyrics.csv as a backup just in case songs_with_lyrics.csv changed in any way.
+
+finder.py uses the songs_with_lyrics.csv file to count how many times the song title is in it's lyrics. 
+
+(Visuals section)
+
+(computatational essay section)
