@@ -17,6 +17,8 @@ def title_in_lyrics_one_song(song):
     lyrics = song[4]
     if '(' in title:
         title = title[0:title.find("(") - 1]
+    if len(lyrics) == 0:
+        return -1
     return lyrics.lower().count(title.lower())
 
 
