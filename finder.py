@@ -20,7 +20,7 @@ def title_in_lyrics_one_song(song):
     return lyrics.lower().count(title.lower())
 
 
-def title_in_lyrics_all_songs(path):
+def title_and_lyrics_all_songs(path):
     """
     turns a csv file into a list and calls the title_in_lyrics_one_song
     function to run through each song in the csv file.
@@ -36,8 +36,5 @@ def title_in_lyrics_all_songs(path):
     total_song_data = []
     song_list = csv_to_list(path)
     for song in song_list:
-        song_data = []
-        song_data.append(song[0])
-        song_data.append(title_in_lyrics_one_song(song))
-        total_song_data.append(song_data)
+        total_song_data.append([song[0],title_in_lyrics_one_song(song)])
     return total_song_data
