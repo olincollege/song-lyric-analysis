@@ -7,7 +7,7 @@ def title_in_lyrics_one_song(song):
     the songs title is in the lyrics. 
 
     Args:
-        song is a list containing [Title,Artist,Year,Rank,Lyrics].
+        song: a list containing [Title, Artist, Year, Rank, Lyrics].
 
     Returns:
         The number of times the song title is in the lyrics.
@@ -22,16 +22,15 @@ def title_in_lyrics_one_song(song):
 
 def get_total_song_data(path):
     """
-    turns a csv file into a list and calls the title_in_lyrics_one_song
-    function to run through each song in the csv file.
+    Given a CSV file containing song information and lyrics, returns a list
+    containing [Title, Artist, Year, Rank, Frequency of Title in Lyrics].
 
     Args:
-        path is the relative path to a file.
+        path: The relative path to the CSV file.
 
     Returns: 
-        total_song_data which is a list that contains lists of a song title
-        and the number of times the title is in it's lyrics.
-
+        A list that contains lists of a song title, artist, year, ranking,
+        and the number of times the title is mentioned in its lyrics.
     """
     total_song_data = []
     song_list = csv_to_list(path)
