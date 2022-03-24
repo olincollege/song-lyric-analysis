@@ -45,6 +45,9 @@ def format_list_for_genius():
         if "&" in artist:
             artist = artist.replace("&", "and")
 
+        if "..." in title:
+            title = title.replace("...", " ")
+
         if "'" in title:
             title = title.replace("'", "")
         if "'" in artist:
@@ -60,7 +63,7 @@ def format_list_for_genius():
         if "+" in title:
             title = title.replace("+", "")
         if "+" in artist:
-            artist = artist.replace("+", "")
+            artist = artist.replace("+", " ")
 
         if "." in title:
             title = title.replace(".", "")
@@ -80,6 +83,8 @@ def format_list_for_genius():
         
         if "!" in title:
             title = title.replace("!", "")
+        if "!" in artist:
+            artist = artist.replace("!", "")
         
         if ":" in title:
             title = title.replace(":", "")
@@ -125,21 +130,24 @@ def get_lyrics(song):
     """
     url = "https://genius.com/"+ song[1] + "-" + song[0] + "-" + "lyrics"
     page = requests.get(url)
+    if str(page) == "<Response [404]>":
+        alt_artist = song[1][0:song[1].find("-")]
+        page = requests.get("https://genius.com/"+ alt_artist + "-" + \
+            song[0] + "-" + "lyrics")
     html = BeautifulSoup(page.text, "html.parser")
-    lyrics = html.find("div", class_="Lyrics__Container-sc-1ynbvzw-6 jYfhrf")
-
-    if lyrics:
-        lyrics = lyrics.get_text()
-    else:
-        lyrics = html.find("div", class_="lyrics")
-        if lyrics:
-            lyrics = lyrics.get_text()
-        else:
-            lyrics = html.find("div", \
+    lyrics = html.find_all("div", \
+        class_="Lyrics__Container-sc-1ynbvzw-6 jYfhrf")
+    if not lyrics:
+        lyrics = html.find_all("div", class_="lyrics")
+    if not lyrics:
+        lyrics = html.find("div", \
                 class_="Lyrics__Container-sc-1ynbvzw-2 jgQsqn")
-            if lyrics:
-                lyrics = lyrics.get_text()
-    return lyrics
+    
+    final_lyrics = ""
+    for item in lyrics:
+        final += " ".join(item.strings)
+
+    return final_lyrics
 
 
 def get_all_lyrics():
