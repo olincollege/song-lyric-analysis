@@ -151,7 +151,6 @@ def get_all_lyrics():
     """
     songs = format_list_for_genius()
     lyrics = []
-    count = 0
     for song in songs:
         lyrics.append(get_lyrics(song))
     return lyrics
