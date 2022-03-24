@@ -154,9 +154,6 @@ def get_all_lyrics():
     count = 0
     for song in songs:
         lyrics.append(get_lyrics(song))
-        if count % 100 == 0:
-            print(count)
-        count += 1
     return lyrics
 
 
