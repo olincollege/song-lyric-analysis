@@ -6,7 +6,7 @@ wiki_data.py scraps data from wikipedia to find all the top 100 songs each year.
 
 genius.py scraps data from genius to find the lyrics to each of the songs in the top 100 every year. The data is put into a csv file labeled songs_with_lyrics.csv. We also created a file labeled songs_with_lyrics_copy.csv which is a copy of of the songs_with_lyrics.csv as a backup just in case songs_with_lyrics.csv changed in any way.
 
-finder.py uses the songs_with_lyrics.csv file to count how many times the song title is in it's lyrics. 
+finder.py uses the songs_with_lyrics.csv file to count how many times the song title is in it's lyrics. This file splits the task up into multiple functions. The first function counts the number of times the song title is in the lyrics for one song. The second function calls the first function and runs through all 5200 through that function. Then the second function creates a list containing [Title,Artist,Year,Rank,count] for each song, where count is the number of times the song title is in the lyrics. 
 
 (Visuals section)
 

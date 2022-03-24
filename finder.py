@@ -1,10 +1,21 @@
+"""
+finder.py uses the songs_with_lyrics.csv file to count how many
+times the song title is in it's lyrics. This file splits the
+task up into multiple functions. The first function counts
+the number of times the song title is in the lyrics for one
+song. The second function calls the first function and runs
+through all 5200 through that function. Then the second
+function creates a list containing [Title,Artist,Year,Rank,count]
+for each song, where count is the number of times the song title
+is in the lyrics.
+"""
 from genius import csv_to_list
 
 
 def title_in_lyrics_one_song(song):
     """
     Takes a list of information on a song and counts how many times
-    the songs title is in the lyrics. 
+    the songs title is in the lyrics.
 
     Args:
         song: a list containing [Title, Artist, Year, Rank, Lyrics].
@@ -30,13 +41,13 @@ def get_total_song_data(path):
     Args:
         path: The relative path to the CSV file.
 
-    Returns: 
+    Returns:
         A list that contains lists of a song title, artist, year, ranking,
         and the number of times the title is mentioned in its lyrics.
     """
     total_song_data = []
     song_list = csv_to_list(path)
     for song in song_list:
-        total_song_data.append([song[0], song[1], song[2], song[3], \
-            title_in_lyrics_one_song(song)])
+        total_song_data.append([song[0], song[1], song[2], song[3],
+                                title_in_lyrics_one_song(song)])
     return total_song_data
