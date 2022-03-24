@@ -15,8 +15,8 @@ def create_song_list(year):
         A list of lists containing the top 100 song titles and artists in
             order.
     """
-    page = wikipedia.page(title=("Billboard Year-End Hot 100 singles of " + \
-        str(year)))
+    page_title = "Billboard Year-End Hot 100 singles of " + str(year)
+    page = wikipedia.page(title=(page_title), auto_suggest=False)
     full_html = page.html()
 
     table_start_index = full_html.find("wikitable sortable")
@@ -45,8 +45,11 @@ def create_song_list(year):
             title = title[0:title.find("\"")]
         
         artist_line = line_list[i+1]
-        artist = artist_line[artist_line.find("title=") + 7:]
-        artist = artist[0:artist.find("\"")]
+        if "wiki" in artist_line:
+            artist = artist_line[artist_line.find("title=") + 7:]
+            artist = artist[0:artist.find("\"")]
+        else:
+            artist = artist_line[artist_line.find("<td>") + 4:]
         
         apostrophe = "&#39;"
         if apostrophe in title:
@@ -60,9 +63,20 @@ def create_song_list(year):
         if ampersand in artist:
             artist = artist.replace(ampersand, "&")
         
-        pebbles = "Perri &quot;Pebbles&quot; Reid"
-        if artist == pebbles:
+        if artist == "Perri &quot;Pebbles&quot; Reid":
             artist = "Pebbles"
+        
+        if artist == "Pussycat Dolls":
+            artist = "The Pussycat Dolls"
+        
+        if artist == "Tupac Shakur":
+            artist = "2Pac"
+
+        if artist == "Sean Combs":
+            artist = "Diddy"
+        
+        if artist == "Vanessa L. Williams":
+            artist = "Vanessa Williams"
         
         if "song)" in title:
             title = title[0:title.find("(") - 1]
