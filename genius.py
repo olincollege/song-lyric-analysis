@@ -144,8 +144,9 @@ def get_lyrics(song):
                 class_="Lyrics__Container-sc-1ynbvzw-2 jgQsqn")
     
     final_lyrics = ""
-    for item in lyrics:
-        final += " ".join(item.strings)
+    if lyrics:
+        for item in lyrics:
+            final_lyrics += " ".join(item.strings)
 
     return final_lyrics
 
