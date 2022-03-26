@@ -14,8 +14,8 @@ def csv_to_list(path):
     Returns:
         A list of lists containing song information.
     """
-    with open(path, newline="") as f:
-        reader = csv.reader(f)
+    with open(path, newline="") as my_file:
+        reader = csv.reader(my_file)
         song_list = list(reader)
     return song_list[1:]
 
@@ -59,7 +59,7 @@ def format_list_for_genius():
         if "(" in title:
             title = title.replace("(", "")
             title = title.replace(")", "")
-        
+
         if "+" in title:
             title = title.replace("+", "")
         if "+" in artist:
@@ -77,24 +77,24 @@ def format_list_for_genius():
 
         if "/" in title:
             title = title.replace("/", " ")
-        
+
         if "?" in title:
             title = title.replace("?", "")
-        
+
         if "!" in title:
             title = title.replace("!", "")
         if "!" in artist:
             artist = artist.replace("!", "")
-        
+
         if ":" in title:
             title = title.replace(":", "")
-        
+
         if "%" in title:
             title = title.replace("%", "")
-        
+
         if "$" in title:
             title = title.replace("$", "s")
-        
+
         # en dashes, not hyphens
         if "–" in title:
             title = title.replace("–", " ")
@@ -124,25 +124,25 @@ def get_lyrics(song):
     Args:
         song: A list containing the title and artist of the song in a form
             that can be pasted in as part of a URL.
-    
+
     Returns:
         A string that is the lyrics of the song.
     """
-    url = "https://genius.com/"+ song[1] + "-" + song[0] + "-" + "lyrics"
+    url = "https://genius.com/" + song[1] + "-" + song[0] + "-" + "lyrics"
     page = requests.get(url)
     if str(page) == "<Response [404]>":
         alt_artist = song[1][0:song[1].find("-")]
-        page = requests.get("https://genius.com/"+ alt_artist + "-" + \
-            song[0] + "-" + "lyrics")
+        page = requests.get("https://genius.com/" + alt_artist + "-" +
+                            song[0] + "-" + "lyrics")
     html = BeautifulSoup(page.text, "html.parser")
-    lyrics = html.find_all("div", \
-        class_="Lyrics__Container-sc-1ynbvzw-6 jYfhrf")
+    lyrics = html.find_all("div",
+                           class_="Lyrics__Container-sc-1ynbvzw-6 jYfhrf")
     if not lyrics:
         lyrics = html.find_all("div", class_="lyrics")
     if not lyrics:
-        lyrics = html.find("div", \
-                class_="Lyrics__Container-sc-1ynbvzw-2 jgQsqn")
-    
+        lyrics = html.find("div",
+                           class_="Lyrics__Container-sc-1ynbvzw-2 jgQsqn")
+
     final_lyrics = ""
     if lyrics:
         for item in lyrics:
@@ -182,11 +182,11 @@ def song_list_with_lyrics():
 def write_lyrics_to_file():
     """
     Takes a list containing song information and lyrics and writes it to a
-    CSV file. 
+    CSV file.
     """
     song_list = song_list_with_lyrics()
-    with open("songs_with_lyrics.csv", "w") as f:
-        writer = csv.writer(f)
+    with open("songs_with_lyrics.csv", "w") as my_file:
+        writer = csv.writer(my_file)
         writer.writerow(["Title", "Artist", "Year", "Rank", "Lyrics"])
         for song in song_list:
             writer.writerow(song)
