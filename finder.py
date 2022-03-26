@@ -33,13 +33,16 @@ def title_in_lyrics_one_song(song):
     return lyrics.lower().count(title.lower())
 
 
-def get_total_song_data(path):
+def get_total_song_data(path, by_song=False):
     """
     Given a CSV file containing song information and lyrics, returns a list
     containing [Title, Artist, Year, Rank, Frequency of Title in Lyrics].
 
     Args:
         path: The relative path to the CSV file.
+        by_song: A boolean that represents whether the returned list will be
+            by song or by category. If by_song is false it returns by category,
+            and if it is true it returns by song.
 
     Returns:
         A list that contains lists of a song title, artist, year, ranking,
@@ -47,7 +50,22 @@ def get_total_song_data(path):
     """
     total_song_data = []
     song_list = csv_to_list(path)
-    for song in song_list:
-        total_song_data.append([song[0], song[1], song[2], song[3],
-                                title_in_lyrics_one_song(song)])
+    if by_song:
+        for song in song_list:
+            total_song_data.append([song[0], song[1], song[2], song[3],
+                                    title_in_lyrics_one_song(song)])
+    else:
+        titles = []
+        artists = []
+        years = []
+        ranks = []
+        frequencies = []
+        for song in song_list:
+            titles.append(song[0])
+            artists.append(song[1])
+            years.append(song[2])
+            ranks.append(song[3])
+            frequencies.append(title_in_lyrics_one_song(song))
+        total_song_data = [titles, artists, years, ranks, frequencies]
+
     return total_song_data
