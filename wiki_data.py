@@ -1,5 +1,5 @@
-import wikipedia
 import csv
+import wikipedia
 
 
 def create_song_list(year):
@@ -10,13 +10,13 @@ def create_song_list(year):
     Args:
         year: An int representing the year (between 1970 and 2021) to create
             the list for.
-    
+
     Returns:
         A list of lists containing the top 100 song titles and artists in
             order.
     """
-    page = wikipedia.page(title=("Billboard Year-End Hot 100 singles of " + \
-        str(year)))
+    page_title = "Billboard Year-End Hot 100 singles of " + str(year)
+    page = wikipedia.page(title=(page_title), auto_suggest=False)
     full_html = page.html()
 
     table_start_index = full_html.find("wikitable sortable")
@@ -32,7 +32,7 @@ def create_song_list(year):
 
     while len(line_list) > 400:
         del line_list[0]
-        
+
     song_list = []
 
     for i in range(1, 400, 4):
@@ -43,11 +43,14 @@ def create_song_list(year):
         else:
             title = title_line[title_line.find("\"") + 1:]
             title = title[0:title.find("\"")]
-        
+
         artist_line = line_list[i+1]
-        artist = artist_line[artist_line.find("title=") + 7:]
-        artist = artist[0:artist.find("\"")]
-        
+        if "wiki" in artist_line:
+            artist = artist_line[artist_line.find("title=") + 7:]
+            artist = artist[0:artist.find("\"")]
+        else:
+            artist = artist_line[artist_line.find("<td>") + 4:]
+
         apostrophe = "&#39;"
         if apostrophe in title:
             title = title.replace(apostrophe, "'")
@@ -59,11 +62,22 @@ def create_song_list(year):
             title = title.replace(ampersand, "&")
         if ampersand in artist:
             artist = artist.replace(ampersand, "&")
-        
-        pebbles = "Perri &quot;Pebbles&quot; Reid"
-        if artist == pebbles:
+
+        if artist == "Perri &quot;Pebbles&quot; Reid":
             artist = "Pebbles"
-        
+
+        if artist == "Pussycat Dolls":
+            artist = "The Pussycat Dolls"
+
+        if artist == "Tupac Shakur":
+            artist = "2Pac"
+
+        if artist == "Sean Combs":
+            artist = "Diddy"
+
+        if artist == "Vanessa L. Williams":
+            artist = "Vanessa Williams"
+
         if "song)" in title:
             title = title[0:title.find("(") - 1]
         if "(" in artist:
