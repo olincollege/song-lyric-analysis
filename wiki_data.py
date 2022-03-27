@@ -1,3 +1,9 @@
+"""
+wiki_data.py scrapes data from wikipedia to find all the top 100 songs each
+year. This file contains mutliple functions to scrape wikipedia for the songs
+we want and to put that data into a csv file.
+"""
+
 import csv
 import wikipedia
 
@@ -21,8 +27,7 @@ def create_song_list(year):
 
     table_start_index = full_html.find("wikitable sortable")
     table = full_html[table_start_index:]
-    table_end_index = table.find("</tbody></table>")
-    table = table[0:table_end_index]
+    table = table[0:table.find("</tbody></table>")]
 
     line_list = table.split("\n")
 
@@ -51,32 +56,19 @@ def create_song_list(year):
         else:
             artist = artist_line[artist_line.find("<td>") + 4:]
 
-        apostrophe = "&#39;"
-        if apostrophe in title:
-            title = title.replace(apostrophe, "'")
-        if apostrophe in artist:
-            artist = artist.replace(apostrophe, "'")
+        title = title.replace("&#39;", "'")
+        artist = artist.replace("&#39;", "'")
 
-        ampersand = "&amp;"
-        if ampersand in title:
-            title = title.replace(ampersand, "&")
-        if ampersand in artist:
-            artist = artist.replace(ampersand, "&")
+        title = title.replace("&amp;", "&")
+        artist = artist.replace("&amp;", "&")
 
-        if artist == "Perri &quot;Pebbles&quot; Reid":
-            artist = "Pebbles"
+        special_case_artists = {"Pussycat Dolls": "The Pussycat Dolls",
+                                "Perri &quot;Pebbles&quot; Reid": "Pebbles",
+                                "Tupac Shakur": "2Pac", "Sean Combs": "Diddy",
+                                "Vanessa L. Williams": "Vanessa Williams"}
 
-        if artist == "Pussycat Dolls":
-            artist = "The Pussycat Dolls"
-
-        if artist == "Tupac Shakur":
-            artist = "2Pac"
-
-        if artist == "Sean Combs":
-            artist = "Diddy"
-
-        if artist == "Vanessa L. Williams":
-            artist = "Vanessa Williams"
+        if artist in special_case_artists.keys():
+            artist = special_case_artists[artist]
 
         if "song)" in title:
             title = title[0:title.find("(") - 1]
@@ -113,8 +105,8 @@ def write_songs_to_file(song_list):
     Args:
         song_list: A list containing song information.
     """
-    with open("songs.csv", "w") as f:
-        writer = csv.writer(f)
+    with open("songs.csv", "w") as my_file:
+        writer = csv.writer(my_file)
         writer.writerow(["Title", "Artist", "Year", "Rank"])
         year_number = int(song_list[0])
         song_list = song_list[1:]

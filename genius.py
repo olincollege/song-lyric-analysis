@@ -1,3 +1,8 @@
+"""
+genius.py scrapes data from genius.com to find the lyrics to each of the songs
+in the top 100 every year. The data is put into a CSV file labeled
+songs_with_lyrics.csv.
+"""
 import csv
 from unidecode import unidecode
 from bs4 import BeautifulSoup
@@ -20,7 +25,7 @@ def csv_to_list(path):
     return song_list[1:]
 
 
-def format_list_for_genius():
+def format_list_for_genius(original_song_list):
     """
     Takes a list containing song information and formats the title and artist
     so that it can be turned into a URL to request from genius.com.
@@ -29,77 +34,34 @@ def format_list_for_genius():
     hyphens, everything is turned into lower case, and special add-ons like
     accents are removed.
 
+    Args:
+        original_song_list: A list containing titles and artists of songs to
+            format.
+
     Returns:
         A list of titles and artists for each song, formatted to become parts
         of URLs.
     """
-    original_song_list = csv_to_list("songs.csv")
     new_song_list = []
 
     for song in original_song_list:
         title = song[0]
         artist = song[1]
 
-        if "&" in title:
-            title = title.replace("&", "and")
-        if "&" in artist:
-            artist = artist.replace("&", "and")
+        char_replacements = {"&": "and", "...": " ", "'": "", '"': '',
+                             "(": "", ")": "", ".": "", ",": "", "/": " ", "?": "", "!": "",
+                             ":": "", "%": "", "$": "s", "–": " "}
 
-        if "..." in title:
-            title = title.replace("...", " ")
-
-        if "'" in title:
-            title = title.replace("'", "")
-        if "'" in artist:
-            artist = artist.replace("'", "")
-
-        if '"' in title:
-            title = title.replace('"', '')
-
-        if "(" in title:
-            title = title.replace("(", "")
-            title = title.replace(")", "")
+        for character, replacement in char_replacements.items():
+            if character in title:
+                title = title.replace(character, replacement)
+            if character in artist:
+                artist = artist.replace(character, replacement)
 
         if "+" in title:
             title = title.replace("+", "")
         if "+" in artist:
             artist = artist.replace("+", " ")
-
-        if "." in title:
-            title = title.replace(".", "")
-        if "." in artist:
-            artist = artist.replace(".", "")
-
-        if "," in title:
-            title = title.replace(",", "")
-        if "," in artist:
-            artist = artist.replace(",", "")
-
-        if "/" in title:
-            title = title.replace("/", " ")
-
-        if "?" in title:
-            title = title.replace("?", "")
-
-        if "!" in title:
-            title = title.replace("!", "")
-        if "!" in artist:
-            artist = artist.replace("!", "")
-
-        if ":" in title:
-            title = title.replace(":", "")
-
-        if "%" in title:
-            title = title.replace("%", "")
-
-        if "$" in title:
-            title = title.replace("$", "s")
-
-        # en dashes, not hyphens
-        if "–" in title:
-            title = title.replace("–", " ")
-        if "–" in artist:
-            artist = artist.replace("–", " ")
 
         while "  " in title:
             title = title.replace("  ", " ")
@@ -158,7 +120,8 @@ def get_all_lyrics():
     Returns:
         A list containing the lyrics of all songs from the list.
     """
-    songs = format_list_for_genius()
+    song_list = csv_to_list("songs.csv")
+    songs = format_list_for_genius(song_list)
     lyrics = []
     for song in songs:
         lyrics.append(get_lyrics(song))
