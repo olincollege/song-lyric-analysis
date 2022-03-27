@@ -13,53 +13,28 @@ from genius import (
 
 from finder import (
     title_in_lyrics_one_song,
-    # get_total_song_data,
+    get_total_song_data,
 )
 
 # Testing genius.py
 
-@pytest.mark.parametrize("song", csv_to_list)
-def test_csv_to_list(song):
+#@pytest.mark.parametrize("csvTest1.csv")
+def test_csv_to_list():
     """
-    Test that a string representing a strand of DNA gets mapped to the rest of
-    its open reading frame.
-
-    Check that given a string representing a strand of DNA as defined above, the
-    rest_of_orf function returns a string representing a strand of DNA for the
-    rest of the given strand's open reading frame. This is the original strand
-    until reading sets of three nucleotides results in a STOP codon, or the
-    entire strand if no such codon appears when reading the strand.
-
-    Args:
-        strand: A string representing a strand of DNA.
-        rest: A string representing the expected rest of the open reading frame
-            of strand, or the entirety of strand if reading it does not result
-            in a STOP codon at any point.
+    Check that a csv_to_list takes a CSV file containing song information and 
+    converts it to a list.
     """
-
-    song = ["Hello","Bob","1000","23","Hello i miss you hello how are you ta da"]
-    assert title_in_lyrics_one_song(song) == 2
+    assert csv_to_list("csvTest1.csv") == [['Title One', ' Artist One', \
+        ' Year One', ' Rank One'], ['Title Two', ' Artist Two', ' Year Two', \
+        ' Rank Two'], ['Title Three', ' Artist Three', ' Year Three', \
+        ' Rank Three']]
 
 # Testing finder.py
 
-@pytest.mark.parametrize("song", title_in_lyrics_one_song)
-def test_title_in_lyrics_one_song(song):
+def test_title_in_lyrics_one_song():
     """
-    Test that a string representing a strand of DNA gets mapped to the rest of
-    its open reading frame.
-
-    Check that given a string representing a strand of DNA as defined above, the
-    rest_of_orf function returns a string representing a strand of DNA for the
-    rest of the given strand's open reading frame. This is the original strand
-    until reading sets of three nucleotides results in a STOP codon, or the
-    entire strand if no such codon appears when reading the strand.
-
-    Args:
-        strand: A string representing a strand of DNA.
-        rest: A string representing the expected rest of the open reading frame
-            of strand, or the entirety of strand if reading it does not result
-            in a STOP codon at any point.
+    Takes a list of information on a song and counts how many times
+    the songs title is in the lyrics.
     """
-
-    song = ["Hello","Bob","1000","23","Hello i miss you hello how are you ta da"]
-    assert title_in_lyrics_one_song(song) == 2
+    song = ['Hi','Bob','1999','12','Hi how are you hi hello hi']
+    assert title_in_lyrics_one_song(song) == 3
