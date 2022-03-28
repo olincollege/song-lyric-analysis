@@ -2,7 +2,6 @@
 Test functions that clean and organize data.
 """
 
-from collections import Counter
 import pytest
 
 from genius import (
@@ -85,7 +84,7 @@ format_list_cases = [
 
 def test_csv_to_list():
     """
-    Check that a csv_to_list takes a CSV file containing song information and 
+    Check that a csv_to_list takes a CSV file containing song information and
     converts it to a list.
     """
     assert csv_to_list("test_csv_to_list.csv") == [['Title One', ' Artist One', \
