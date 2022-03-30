@@ -10,19 +10,45 @@ wiki_data.py scrapes data from wikipedia to find all the top 100 songs each year
 
 # GENIUS LYRICS SCRAPING:
 
-genius.py scrapes data from genius to find the lyrics to each of the songs in the top 100 every year. In order to do this we needed to include the packages: import csv, from unidecode import unidecode, from bs4 import BeautifulSoup, import requests. unidecode formats special characters. BeautifulSoup is an HTML parser which allows us to get the parts of the page we want. Requests gives us access to the page. We search for the lyrics by using the unique genius URL for each song. We then pick the lyrics from the page and put that data into a CSV file labeled songs_with_lyrics.csv. We also created a file labeled songs_with_lyrics_copy.csv which is a copy of of the songs_with_lyrics.csv as a backup just in case songs_with_lyrics.csv changed in any way.
+genius.py scrapes data from genius to find the lyrics to each of the songs in the top 100 every year. In order to do this we needed to include the packages: import csv, from unidecode import unidecode, from bs4 import BeautifulSoup, import requests. unidecode formats special characters. BeautifulSoup is an HTML parser which allows us to get the parts of the page we want. Requests gives us access to the page. We search for the lyrics by using the unique genius URL for each song. We then pick the lyrics from the page and put that data into a CSV file labeled songs_with_lyrics.csv. We also created a file labeled songs_with_lyrics_copy.csv which is a copy of of the songs_with_lyrics.csv as a backup just in case songs_with_lyrics.csv changed in any way. 
 
 # ANALYSIS ON THE SONGS:
 
-finder.py uses the songs_with_lyrics.csv file to count how many times the song title is in it's lyrics. This file splits the task up into multiple functions. The first function counts the number of times the song title is in the lyrics for one song. The second function calls the first function and runs through all 5200 through that function. Then the second function creates a list containing [Title,Artist,Year,Rank,count] for each song, where count is the number of times the song title is in the lyrics. 
+finder.py uses the songs_with_lyrics.csv file to count how many times the song title is in its lyrics. This file splits the task up into multiple functions. The first function counts the number of times the song title is in the lyrics for one song. The second function calls the first function and runs through all 5200 through that function. Then the second function creates a list containing [Title,Artist,Year,Rank,count] for each song, where count is the number of times the song title is in the lyrics. 
 
 # DATA:
 
+The data we have is stored in 2 main CSV files. The first is songs.csv and this stores all the data we scraped from Wikipedia. This stores the songs title, artist, year, and ranking. The seconds is songs_with_lyrics.csv and this stores all the same data as well as the lyrics of the song. We have also included copies of those files to allow us to have a back-up in case we change the data in any way accidentally. 
 
 # VISUALS:
 
-(Visuals section)
+The visuals are all in the computational essay and need a few packages to run them. The packages include from better_profanity we imported profanity and we imported matplotlib.pyplot as plt. Also from our file finder.py we imported get_total_song_data into the visuals. The matplotlib allowed us to visualize our code and the profanity package help keep the song titles clean. The list get_total_song_data has all the data we needed to visualize our code.
+
 
 # COMPUTATIONAL ESSAY:
 
-(computatational essay section)
+The file essay.ipynb contains our computational essay, which describes how we used our code and what we wanted to get out of it. This also describes the results we came up with from analyzing the data we scrape. 
+
+# All packages
+
+#wiki_data.py#
+
+import csv
+import wikipedia
+
+#genius.py#
+
+import csv
+from unidecode import unidecode
+from bs4 import BeautifulSoup
+import requests
+
+#finder.py#
+
+from genius import csv_to_list
+
+#essay.ipynb#
+
+import matplotlib.pyplot as plt
+from finder import get_total_song_data
+from better_profanity import profanity
