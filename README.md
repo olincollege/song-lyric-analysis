@@ -30,19 +30,19 @@ The visuals that represent the trends we found in the data are all in the comput
 
 ### List of all packages used in this project:
 
-#wiki_data.py#
+#### wiki_data.py
 
 csv
 wikipedia
 
-#genius.py#
+#### genius.py
 
 csv
 unidecode (from unidecode)
 BeautifulSoup (from bs4)
 requests
 
-#essay.ipynb#
+#### essay.ipynb
 
 matplotlib.pyplot
 profanity (from better_profanity)
