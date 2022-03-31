@@ -32,17 +32,17 @@ The visuals that represent the trends we found in the data are all in the comput
 
 #### wiki_data.py
 
-csv
-wikipedia
+- csv
+- wikipedia
 
 #### genius.py
 
-csv
-unidecode (from unidecode)
-BeautifulSoup (from bs4)
-requests
+- csv
+- unidecode (from unidecode)
+- BeautifulSoup (from bs4)
+- requests
 
 #### essay.ipynb
 
-matplotlib.pyplot
-profanity (from better_profanity)
+- matplotlib.pyplot
+- profanity (from better_profanity)
