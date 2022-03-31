@@ -26,7 +26,7 @@ The data we have is stored in two main CSV files. The first is songs.csv and thi
 
 ## COMPUTATIONAL ESSAY AND VISUALS
 
-The visuals that represent the trends we found in the data are all in the computational essay essay.ipynb. The essay uses two additional packages: matplotlib.pyplot and the function profanity from better_profanity. The matplotlib allowed us to visualize our code and the better_profanity package helped keep the song titles clean when we displayed them.
+The visuals that represent the trends we found in the data are all in the computational essay lyric_analysis.ipynb. The essay uses two additional packages: matplotlib.pyplot and the function profanity from better_profanity. The matplotlib allowed us to visualize our code and the better_profanity package helped keep the song titles clean when we displayed them.
 
 ### List of all packages used in this project:
 
@@ -42,7 +42,7 @@ The visuals that represent the trends we found in the data are all in the comput
 - BeautifulSoup (from bs4)
 - requests
 
-#### essay.ipynb
+#### lyric_analysis.ipynb
 
 - matplotlib.pyplot
 - profanity (from better_profanity)
